@@ -18,33 +18,71 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<Label Grid.Row="0" Grid.Column="0">Add lyrics section</Label>
-		<StackPanel Grid.Row="1" Grid.Column="0" Margin="5,0,0,0">
-			<DockPanel>
-				<Label DockPanel.Dock="Left">Section: </Label>
-				<ComboBox Name="cb_section" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto">
-					<ComboBoxItem Content="Verse"></ComboBoxItem>
-					<ComboBoxItem Content="Chorus"></ComboBoxItem>
-					<ComboBoxItem Content="Bridge"></ComboBoxItem>
-					<ComboBoxItem Content="Title"></ComboBoxItem>
-				</ComboBox>
-				<TextBox MaxLength="1"></TextBox>
-			</DockPanel>
-			<RichTextBox x:Name="tb_lyrics">
+
+		<ScrollViewer Grid.Row="1" Grid.Column="0"  MaxHeight="300" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+			<StackPanel Margin="5,0,0,0">
+				<DockPanel>
+					<Label DockPanel.Dock="Left">Section and Section Number:</Label>
+					<ComboBox Name="cb_section" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" >
+						<ComboBoxItem Content="Verse"></ComboBoxItem>
+						<ComboBoxItem Content="Chorus"></ComboBoxItem>
+						<ComboBoxItem Content="Bridge"></ComboBoxItem>
+						<ComboBoxItem Content="Title"></ComboBoxItem>
+					</ComboBox>
+					<TextBox x:Name="tb_section_num" MaxLength="1" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_section_num_text_changed" GotFocus="tb_section_num_GotFocus">
+					</TextBox>
+				</DockPanel>
+				<Label>Slide Content (Lyrics/Title):</Label>
+				<!--<RichTextBox x:Name="tb_lyrics">
+				
 				<RichTextBox.Resources>
 					<Style TargetType="{x:Type Paragraph}">
 						<Setter Property="Margin" Value="0"/>
 					</Style>
 				</RichTextBox.Resources>
-			</RichTextBox>
-			<Label x:Name="lbl_imgName">Background Image Preview: </Label>
-			<Image x:Name="img_preview"></Image>
-			<Button x:Name="btn_selImg" Margin="0,5,0,0" Click="btn_selImg_onClick">Select Image</Button>
-			<Button x:Name="btn_addSection" Margin="0,5,0,0" Click="btn_addSection_onClick">Add</Button>
-		</StackPanel>
+			</RichTextBox>-->
+				<TextBox 
+					x:Name="tb_lyrics"
+					AcceptsReturn="True"
+					VerticalScrollBarVisibility="Visible"
+					GotFocus="tb_lyrics_GotFocus">
+				</TextBox>
+				<Label x:Name="lbl_imgName">Background Image Preview:</Label>
+				<Image x:Name="img_preview"></Image>
+				<Button x:Name="btn_selImg" Margin="0,5,0,0" Click="btn_selImg_onClick">Select Background Image</Button>
+				<DockPanel>
+					<Label>Text Glow color:  </Label>
+					<Label>Alpha: </Label>
+					<TextBox Text="0" x:Name="tb_color_a" MaxLength="3" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_color_a_TextChanged"/>
+					<Label>Red:</Label>
+					<TextBox Text="0" x:Name="tb_color_r" MaxLength="3" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_color_r_TextChanged"/>
+					<Label>Green:</Label>
+					<TextBox Text="0" x:Name="tb_color_g" MaxLength="3" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_color_g_TextChanged"/>
+					<Label>Blue:</Label>
+					<TextBox Text="0" x:Name="tb_color_b" MaxLength="3" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_color_b_TextChanged"/>
 
-		<StackPanel x:Name="pnl_added" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0">
+				</DockPanel>
+				<DockPanel>
+					<Label>Font family: </Label>
+					<ComboBox Name="cb_font" ItemsSource="{Binding Source={x:Static Fonts.SystemFontFamilies}}"></ComboBox>
+					<Label>Font size: </Label>
+					<TextBox Text="80" x:Name="tb_font_size" MaxLength="3" PreviewTextInput="numbersOnlyTextbox"/>
+				</DockPanel>
+				
+				<Button x:Name="btn_addSection" Margin="0,5,0,0" Click="btn_addSection_onClick">Add</Button>
+				
+
+			</StackPanel>
+		</ScrollViewer>
+		<ScrollViewer  Grid.Row="1" Grid.Column="1" MaxHeight="450">
+			<StackPanel x:Name="pnl_added" Margin="5,0,0,0"></StackPanel>
+		</ScrollViewer>
+		<Label x:Name="lbl_help" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top">
 			
-		</StackPanel>
+		</Label>
+		<Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">Configured Slides</Label>
+		<Button x:Name="btn_gen" Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Stretch" FontSize="24" Click="btn_gen_Click">Generate Slide</Button>
+
 	</Grid>
 	
 </Window>
