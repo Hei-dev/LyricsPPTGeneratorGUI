@@ -86,9 +86,15 @@ namespace wpfLyricsPPT
 			if(cb_section.Text==""||tb_section_num.Text==""||
 				//img_preview.Source==null||
 				img_path==""||
-				cb_font.Text == "")
+				cb_font.Text == ""||
+				tb_color_a.Text==""||
+				tb_color_r.Text==""||
+				tb_color_g.Text==""||
+				tb_color_b.Text=="" ||
+				tb_font_size.Text==""
+				)
 			{
-				lbl_help.Content = "Some field is empty. Please enter the value and try again.";
+				lbl_help.Content = "There are empty field(s). Please fill in the value and try again.";
 				return;
 			}
 			slide_elements.Add(

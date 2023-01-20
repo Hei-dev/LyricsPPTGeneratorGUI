@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wpfLyricsPPT", "wpfLyricsPPT\wpfLyricsPPT.csproj", "{A627A28E-4AE5-4847-96DF-BBB54DD757FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUILyricsPPTGenerator", "wpfLyricsPPT\GUILyricsPPTGenerator.csproj", "{A627A28E-4AE5-4847-96DF-BBB54DD757FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
