@@ -11,12 +11,14 @@ namespace wpfLyricsPPT
 {
 	public class Gen_Slide
 	{
+
+		private static pptApplication pptapp;
+		private static Presentation pptfile;
 		public static void generate_ppt(List<Slide_Element> se_list)
 		{
 			//Open PowerPoint
-			pptApplication pptapp = new pptApplication();
-
-			Presentation pptfile = pptapp.Presentations.Add(MsoTriState.msoTrue);
+			pptapp = new pptApplication();
+			pptfile = pptapp.Presentations.Add(MsoTriState.msoTrue);
 
 			//pptfile.
 
@@ -30,19 +32,21 @@ namespace wpfLyricsPPT
 				foreach(string slide_text in slide_content_text)
 				{
 					//2. foreach text segments, add to slide with color and bg
+					//2a. Replace punctuation
+					string final_slide_text = replaceUnnessaryChar(slide_text);
 					//2a. split line in slide if needed
 					if (slide_text.Length >= 13)
 					{
-						slide_text.Replace(" ", "\n");
+						final_slide_text = slide_text.Replace(" ", "\n");
 					}
 
 					font_color = (se.glow_color.GetBrightness() > 0.5) ? Color.Black : Color.White;
-					
 					addToSlide(
 						pptfile.Slides,
 						current_slide_idx,
 						pptfile.SlideMaster.CustomLayouts[PpSlideLayout.ppLayoutTitle],
-						slide_text, se.font.Source, se.font_size, font_color, se.glow_color,
+						final_slide_text, se.font.Source, se.font_size, font_color,
+						se.glow_color, se.glow_opa, se.glow_rad,
 						se.img_path,
 						0,0 //TODO calculate the center point of the slide
 						);
@@ -57,7 +61,8 @@ namespace wpfLyricsPPT
 			Slides slides,
 			int slide_idx,
 			CustomLayout customLayout,
-			string text, string typeface, float size, Color fontColor, Color glowColor,
+			string text, string typeface, float size, Color fontColor,
+			Color glowColor, float glowOpa, float glowRad,
 			string bgimg_path,
 			int pos_x, int pos_y
 			)
@@ -70,6 +75,8 @@ namespace wpfLyricsPPT
 			//Using TextRange2 to support Glow effect
 			TextRange2 titleBox = newSlide.Shapes[1].TextFrame2.TextRange;
 
+			//newSlide.Shapes[1].TextFrame2.Lay
+
 			titleBox.Font.Name = typeface;
 			titleBox.Font.NameFarEast = typeface;
 			titleBox.Characters.Font.NameFarEast = typeface;
@@ -77,21 +84,44 @@ namespace wpfLyricsPPT
 			
 			titleBox.Font.Size = size;
 			titleBox.Font.Glow.Color.RGB = glowColor.ToArgb();
-			titleBox.Font.Glow.Radius = 50;
+			titleBox.Font.Glow.Radius = glowRad;
+			titleBox.Font.Glow.Transparency = glowOpa;
+			Console.WriteLine(glowRad);
 			//newSlide.Shapes[1].TextFrame2.TextRange.Font.Color.RGB = fontColor.ToArgb();
 
 			//Use TextRange to support normal font color
 			newSlide.Shapes[1].TextFrame.TextRange.Font.Color.RGB = fontColor.ToArgb();
+			newSlide.Shapes[1].TextFrame.TextRange.ParagraphFormat.Alignment = PpParagraphAlignment.ppAlignCenter;
+			newSlide.Shapes[1].TextFrame.TextRange.ParagraphFormat.BaseLineAlignment = PpBaselineAlignment.ppBaselineAlignCenter;
 			//newSlide.Shapes[1].TextFrame.TextRange.Font.Name = typeface;
 
 			//Sets the shape's position
+
+			newSlide.Shapes[1].TextFrame.HorizontalAnchor = MsoHorizontalAnchor.msoAnchorCenter;
+			newSlide.Shapes[1].TextFrame.VerticalAnchor = MsoVerticalAnchor.msoAnchorMiddle;// MsoAnchorCenter;
+			newSlide.Shapes[1].TextFrame.HorizontalAnchor = MsoHorizontalAnchor.msoAnchorCenter;
+			newSlide.Shapes[1].TextFrame.VerticalAnchor = MsoVerticalAnchor.msoAnchorMiddle;// MsoAnchorCenter;
+			//newSlide.Shapes[1].Left = pos_x;
+			newSlide.Shapes[1].Top = pptfile.PageSetup.SlideHeight/2 - newSlide.Shapes[1].Height / 2;/**/
 			/*
-			newSlide.Shapes[1].TextFrame.HorizontalAnchor = 0;
-			newSlide.Shapes[1].TextFrame.VerticalAnchor = 0;
-			newSlide.Shapes[1].Left = pos_x;
-			newSlide.Shapes[1].Top = pos_y;*/
+			newSlide.Shapes[1].Top = pptfile.PageSetup.SlideHeight - newSlide.Shapes[1].Height / 2;
 
+			newSlide.Shapes[1].Left = 0;
+			/**/
 
+		}
+
+		private static string replaceUnnessaryChar(string text)
+		{
+			return text
+				.Replace("，", " ")
+				.Replace("。", " ")
+				.Replace("：", " ")
+				.Replace(".", " ")
+				.Replace(",", " ")
+				.Replace(":", " ")
+				.Replace(";", " ")
+				.Replace("\n", "");
 		}
 	}
 }

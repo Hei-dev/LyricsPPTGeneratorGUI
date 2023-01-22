@@ -22,6 +22,8 @@ namespace wpfLyricsPPT
 		public FontFamily font{ get; set; }
 		public string font_name { get; set; }
 		public System.Drawing.Color glow_color { get; set; }
+		public float glow_rad { get; set; }
+		public float glow_opa { get; set; }
 		public int font_size { get; set; }
 
 		public ImageSource img_src
@@ -37,7 +39,13 @@ namespace wpfLyricsPPT
 			set;
 		}
 
-		public Slide_Element(string section, string content, ImageSource img, string img_path, FontFamily font, string font_name, System.Drawing.Color glow_color, int font_size)
+		public Slide_Element(
+			string section,
+			string content,
+			ImageSource img, string img_path,
+			FontFamily font, string font_name,
+			System.Drawing.Color glow_color, float glow_rad, float glow_opa,
+			int font_size)
 		{
 			this.sec = section; //Section name, e.g. Verse 1
 			this.content = content; //Content of the slide, e.g. the lyrics
@@ -45,6 +53,8 @@ namespace wpfLyricsPPT
 			this.img_path = img_path; //The background image source path
 			this.font = font; //the font typeface
 			this.glow_color = glow_color; //The color that makes the text glow
+			this.glow_opa = glow_opa/100;
+			this.glow_rad = glow_rad; //The glow edge size
 			this.font_size = font_size; //The font size
 
 			panel = new_slide_element();

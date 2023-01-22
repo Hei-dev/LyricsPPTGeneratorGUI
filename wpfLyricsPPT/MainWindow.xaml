@@ -26,8 +26,10 @@
 					<Label DockPanel.Dock="Left">1. Section and Section Number:</Label>
 					<ComboBox Name="cb_section" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" >
 						<ComboBoxItem Content="Verse"></ComboBoxItem>
+						<ComboBoxItem Content="PreChorus"></ComboBoxItem>
 						<ComboBoxItem Content="Chorus"></ComboBoxItem>
 						<ComboBoxItem Content="Bridge"></ComboBoxItem>
+						<ComboBoxItem Content="Coda"></ComboBoxItem>
 						<ComboBoxItem Content="Title"></ComboBoxItem>
 					</ComboBox>
 					<TextBox x:Name="tb_section_num" MaxLength="1" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_section_num_text_changed" GotFocus="tb_section_num_GotFocus">
@@ -42,7 +44,7 @@
 					GotFocus="tb_lyrics_GotFocus">
 				</TextBox>
 				<DockPanel>
-					<Label>3. Text Glow color:  </Label>
+					<Label>3. Text Glow format: Color:  </Label>
 					<Label>Alpha: </Label>
 					<TextBox Text="0" x:Name="tb_color_a" MaxLength="3" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_color_a_TextChanged"/>
 					<Label>Red:</Label>
@@ -51,7 +53,10 @@
 					<TextBox Text="0" x:Name="tb_color_g" MaxLength="3" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_color_g_TextChanged"/>
 					<Label>Blue:</Label>
 					<TextBox Text="0" x:Name="tb_color_b" MaxLength="3" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_color_b_TextChanged"/>
-
+					<Label>Size:</Label>
+					<TextBox Text="0" x:Name="tb_color_rad" MaxLength="3" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_color_rad_TextChanged"/>
+					<Label>Opacity:</Label>
+					<TextBox Text="0" x:Name="tb_color_opa" MaxLength="3" PreviewTextInput="numbersOnlyTextbox" TextChanged="tb_color_b_TextChanged"/>
 				</DockPanel>
 				<DockPanel>
 					<Label>4. Font family:</Label>

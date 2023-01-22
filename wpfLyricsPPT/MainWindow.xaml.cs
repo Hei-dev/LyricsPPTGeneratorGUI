@@ -91,6 +91,8 @@ namespace wpfLyricsPPT
 				tb_color_r.Text==""||
 				tb_color_g.Text==""||
 				tb_color_b.Text=="" ||
+				tb_color_rad.Text=="" ||
+				tb_color_opa.Text=="" ||
 				tb_font_size.Text==""
 				)
 			{
@@ -105,6 +107,8 @@ namespace wpfLyricsPPT
 				new FontFamily(cb_font.Text),
 				cb_font.Text,
 				System.Drawing.Color.FromArgb(int.Parse(tb_color_a.Text), int.Parse(tb_color_r.Text), int.Parse(tb_color_g.Text), int.Parse(tb_color_b.Text)),
+				float.Parse(tb_color_rad.Text),
+				float.Parse(tb_color_opa.Text),
 				int.Parse(tb_font_size.Text)
 				));
 			pnl_added.Children.Add(slide_elements[slide_elements.Count-1].panel);
@@ -126,7 +130,7 @@ namespace wpfLyricsPPT
 			 "|JPEG Images|*.jpg;*.jpeg" +
 			 "|PNG Images|*.png" +
 			 "|All Files|*.*";
-
+			
 			// Show open file dialog box
 			Nullable<bool> result = dlg.ShowDialog();
 
@@ -136,6 +140,8 @@ namespace wpfLyricsPPT
 				img_preview.Source = new ImageSourceConverter().ConvertFromString(dlg.FileName) as ImageSource;// dlg.FileName;
 				lbl_imgName.Content = "Background Image Preview: " + dlg.FileName;
 				img_path = dlg.FileName;
+
+				lbl_help.Content = "Make sure your image is cropped to fit in the PowerPoint!";
 			}
 		}
 
@@ -215,6 +221,25 @@ namespace wpfLyricsPPT
 				else if (int.Parse(tb_color_b.Text) < 0)
 				{
 					tb_color_b.Text = "0";
+				}
+			}
+			catch (FormatException)
+			{
+
+			}
+		}
+
+		private void tb_color_rad_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			try
+			{
+				if (int.Parse(tb_color_rad.Text) > 100)
+				{
+					tb_color_rad.Text = "100";
+				}
+				else if (int.Parse(tb_color_rad.Text) < 0)
+				{
+					tb_color_rad.Text = "0";
 				}
 			}
 			catch (FormatException)
