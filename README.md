@@ -7,5 +7,8 @@ The new program have better support for making a powerpoint presentation, with t
 
 The application has also made an upgrade to having a Graphical User Interface(GUI). This would make the program more accessible to users that does not want to follow the format because it is too complicated (which is basically everyone)
 
+##Software Required
+To generate the PowerPoint, Microsoft Office (Preferably 2013 or later, only tested with Microsoft 365 Version) is required.
+
 ## Get the application
 The app is available under the release tab. Users can download and extract the attached zip file, and run setup.exe.
