@@ -77,11 +77,6 @@ namespace wpfLyricsPPT
 
 			//newSlide.Shapes[1].TextFrame2.Lay
 
-			titleBox.Font.Name = typeface;
-			titleBox.Font.NameFarEast = typeface;
-			titleBox.Characters.Font.NameFarEast = typeface;
-			titleBox.Text = text;
-			
 			titleBox.Font.Size = size;
 			titleBox.Font.Glow.Color.RGB = glowColor.ToArgb();
 			titleBox.Font.Glow.Radius = glowRad;
@@ -96,17 +91,30 @@ namespace wpfLyricsPPT
 			//newSlide.Shapes[1].TextFrame.TextRange.Font.Name = typeface;
 
 			//Sets the shape's position
-
 			newSlide.Shapes[1].TextFrame.HorizontalAnchor = MsoHorizontalAnchor.msoAnchorCenter;
 			newSlide.Shapes[1].TextFrame.VerticalAnchor = MsoVerticalAnchor.msoAnchorMiddle;// MsoAnchorCenter;
 			newSlide.Shapes[1].TextFrame.HorizontalAnchor = MsoHorizontalAnchor.msoAnchorCenter;
 			newSlide.Shapes[1].TextFrame.VerticalAnchor = MsoVerticalAnchor.msoAnchorMiddle;// MsoAnchorCenter;
+			newSlide.Shapes[1].Width = pptfile.PageSetup.SlideWidth;
 			//newSlide.Shapes[1].Left = pos_x;
-			newSlide.Shapes[1].Top = pptfile.PageSetup.SlideHeight/2 - newSlide.Shapes[1].Height / 2;/**/
+			newSlide.Shapes[1].Top = pptfile.PageSetup.SlideHeight / 2 - newSlide.Shapes[1].Height / 2;/**/
 			/*
 			newSlide.Shapes[1].Top = pptfile.PageSetup.SlideHeight - newSlide.Shapes[1].Height / 2;
-
+			*/
 			newSlide.Shapes[1].Left = 0;
+
+			titleBox.Font.Name = typeface;
+			//titleBox.Font.NameOther = typeface;
+			titleBox.Font.NameFarEast = typeface;
+			//titleBox.Font.NameComplexScript = typeface;
+			titleBox.Characters.Font.Name = typeface;
+			//titleBox.Characters.Font.NameOther = typeface;
+			titleBox.Characters.Font.NameFarEast = typeface;
+			//titleBox.Characters.Font.NameOther = typeface;
+			//titleBox.Characters.Font.NameComplexScript = typeface;
+			titleBox.Text = text;
+			
+			
 			/**/
 
 		}
